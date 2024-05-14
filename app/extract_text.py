@@ -48,10 +48,11 @@ class ExtractText:
         formatted_text = extracted_text
         print(formatted_text)
         if config("Formatting", "openai_analysis"):
-            # formatted_text = ExtractText.openai_format_raw_ocr(formatted_text, language)
-            prompt = ExtractText.formatted_prompt(formatted_text, language)
-            #print(prompt)
-            formatted_text = LlamaInterface.query(prompt)
+            if(openai.api_key == None or openai.api_key == ""):
+                prompt = ExtractText.formatted_prompt(formatted_text, language)
+                formatted_text = LlamaInterface.query(prompt)
+            else:
+                formatted_text = ExtractText.openai_format_raw_ocr(formatted_text, language)
         if config("Formatting", "remove_backticks"):
             formatted_text = formatted_text.replace("```", "")
         if config("Formatting", "remove_language_name"):
