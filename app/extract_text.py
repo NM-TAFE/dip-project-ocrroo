@@ -49,8 +49,9 @@ class ExtractText:
         print(formatted_text)
         if config("Formatting", "openai_analysis"):
             # formatted_text = ExtractText.openai_format_raw_ocr(formatted_text, language)
-
-            formatted_text = LlamaInterface.query(ExtractText.formatted_prompt(formatted_text, language))
+            prompt = ExtractText.formatted_prompt(formatted_text, language)
+            #print(prompt)
+            formatted_text = LlamaInterface.query(prompt)
         if config("Formatting", "remove_backticks"):
             formatted_text = formatted_text.replace("```", "")
         if config("Formatting", "remove_language_name"):
@@ -59,10 +60,10 @@ class ExtractText:
 
     @staticmethod
     def formatted_prompt(extracted_text: str, language: str) -> str:
-        return f"Analyse the following {language} code snippet:\n'{extracted_text}'\n\n if it contains '{language}' code, " \
-        f"correct any indentation errors, syntax errors, and anything else that is incorrect. If no '{language}' " \
-        f"code is detected, return 'ERROR'. Do not provide explanations, leading or trailing backticks, or specify " \
-        f"the language in your response. Simply return the corrected code. Avoid making extensive alterations"
+        return f"Analyse the following {language} code snippet:\n\n{extracted_text}\n\n" \
+        f"If no '{language}' code is present, say 'No Code' and disregard the remaining prompt otherwise if '{language}' code is detected, " \
+        f"correct any syntax errors, indentation errors, and anything else that is incorrect. " \
+        f"Do NOT return any explanations, only code. Do NOT return leading or trailing backticks " \
 
     @staticmethod
     def extract_frame_at_timestamp(filename: str, timestamp: float) -> Union[cv2.VideoCapture, None]:
