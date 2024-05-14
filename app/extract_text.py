@@ -61,9 +61,10 @@ class ExtractText:
     @staticmethod
     def formatted_prompt(extracted_text: str, language: str) -> str:
         return f"Analyse the following {language} code snippet:\n\n{extracted_text}\n\n" \
-        f"If no '{language}' code is present, say 'No Code' and disregard the remaining prompt otherwise if '{language}' code is detected, " \
-        f"correct any syntax errors, indentation errors, and anything else that is incorrect. " \
-        f"Do NOT return any explanations, only code. Do NOT return leading or trailing backticks " \
+        f"If no '{language}' code is present, say 'No Code' and disregard the remaining prompt otherwise if '{language}' code is detected," \
+        "If The Code is incomplete or has errors then prfix with 'Incomplete Code'" \
+        f"correct any basic syntax errors, indentation errors, but do not add any code that does not exist in the sample and make sure to preserve comments" \
+        f"Do NOT return any explanations, only code. Do NOT return leading or trailing backticks "
 
     @staticmethod
     def extract_frame_at_timestamp(filename: str, timestamp: float) -> Union[cv2.VideoCapture, None]:
