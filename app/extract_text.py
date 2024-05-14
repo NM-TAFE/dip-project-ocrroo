@@ -5,6 +5,7 @@ import logging
 from typing import Union
 import utils
 from utils import config
+from remotellama import LlamaInterface
 
 
 class ExtractText:
@@ -31,6 +32,7 @@ class ExtractText:
             extracted_text = pytesseract.image_to_string(frame)
             logging.info(f"Successfully extracted code from frame @ {timestamp}s in file {filename}")
             return ExtractText.format_raw_ocr_string(extracted_text)
+
         else:
             logging.error(f"Unable to extract code from frame @ {timestamp}s in file {filename}")
             return "ERROR"
@@ -44,13 +46,29 @@ class ExtractText:
         """
         language = config("UserSettings", "programming_language")
         formatted_text = extracted_text
+        print(formatted_text)
         if config("Formatting", "openai_analysis"):
-            formatted_text = ExtractText.openai_format_raw_ocr(formatted_text, language)
+            # formatted_text = ExtractText.openai_format_raw_ocr(formatted_text, language)
+
+            formatted_text = LlamaInterface.query(ExtractText.formatted_prompt(formatted_text, language))
         if config("Formatting", "remove_backticks"):
             formatted_text = formatted_text.replace("```", "")
         if config("Formatting", "remove_language_name"):
             formatted_text = formatted_text.replace(language, "", 1)
         return formatted_text
+
+    @staticmethod
+    def formatted_prompt(extracted_text: str, language: str) -> str:
+        text = {f"You are a coding assistant. You reply only in {language} code ",
+                "that is correct and formatted. Do NOT reply with any explanation, ",
+                f"only code. If you are given something that is not {language} code, ",
+                "you must NOT include it in your response. If nothing is present, ",
+                "simply return 'ERROR' and nothing else. Do NOT return leading or trailing",
+                "backticks and do NOT return the language before the code snippet.",
+                f"Fix up the following {language} code snippet, fix up any indentation errors, syntax errors, ",
+                f"and anything else that is incorrect: '{extracted_text}'"}
+
+        return "".join(text)
 
     @staticmethod
     def extract_frame_at_timestamp(filename: str, timestamp: float) -> Union[cv2.VideoCapture, None]:
