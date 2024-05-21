@@ -82,15 +82,15 @@ def read_user_data() -> json:
     Reads the users data from json file
     :return: Returns user data as json
     """
-    if not os.path.exists("data\\userdata.json"):
-        if not os.path.exists("data\\"):
-            os.makedirs("data\\")
-        with open("data\\userdata.json", "w") as user_data:
+    if not os.path.exists("data/userdata.json"):
+        if not os.path.exists("data/"):
+            os.makedirs("data/")
+        with open("data/userdata.json", "w") as user_data:
             user_data.write(json.dumps({"all_videos": []}))
             pass
         return None
     try:
-        with open("data\\userdata.json", "r") as user_data_json:
+        with open("data/userdata.json", "r") as user_data_json:
             data = json.load(user_data_json)
             return data
     except JSONDecodeError:
@@ -106,14 +106,14 @@ def get_vid_save_path() -> str:
     vid_download_path = config("UserSettings", "video_save_path")
     # Set default output path for video download path
     if vid_download_path == "output_path":
-        default_path = os.path.dirname(os.getcwd()) + "\\out\\videos\\"
+        default_path = os.path.dirname(os.getcwd()) + "/out/videos/"
         if not os.path.exists(default_path):
             os.makedirs(default_path)
         return default_path
     # Check if the path ends with a backslash
-    if not vid_download_path.endswith("\\"):
+    if not vid_download_path.endswith("/"):
         # If it doesn't end with a backslash, append one
-        vid_download_path += "\\"
+        vid_download_path += "/"
 
     return vid_download_path
 
@@ -126,14 +126,14 @@ def get_output_path() -> str:
     output_path = config("UserSettings", "capture_output_path")
     # Set default output path for code files
     if output_path == "output_path":
-        default_path = os.path.dirname(os.getcwd()) + "\\out\\"
+        default_path = os.path.dirname(os.getcwd()) + "/out/"
         if not os.path.exists(default_path):
             os.makedirs(default_path)
         return default_path
     # Check if the path ends with a backslash
-    if not output_path.endswith("\\"):
+    if not output_path.endswith("/"):
         # If it doesn't end with a backslash, append one
-        output_path += "\\"
+        output_path += "/"
     return output_path
 
 
