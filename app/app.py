@@ -8,6 +8,9 @@ from extract_text import ExtractText
 from flask import Flask, render_template, request, send_file, redirect
 import html
 import glob
+import threading
+import pre_process
+
 
 # Initialise flask app
 app = Flask(__name__, static_url_path='/static', static_folder='static')
@@ -200,7 +203,10 @@ def video(play_filename):
     if utils.filename_exists_in_userdata(play_filename):
         global filename
         filename = play_filename
-        return render_template("player.html", filename=filename, video_data=utils.get_video_data(filename))
+        video_data = utils.get_video_data(filename)
+        if video_data['processed'] is None:
+            threading.Thread(target=pre_process.process_video, args=(filename,))
+        return render_template("player.html", filename=filename, video_data=video_data)
     return redirect("/")
 
 

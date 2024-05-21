@@ -305,6 +305,7 @@ def add_video_to_user_data(filename: str, video_title: str, video_hash: str, you
         "video_length": round(video_capture.get(cv2.CAP_PROP_FRAME_COUNT) / video_capture.get(cv2.CAP_PROP_FPS)),
         "progress": 0,
         "captures": [],
+        "processed": None,
     }
     if youtube_url is not None:
         new_video["youtube_url"] = youtube_url
