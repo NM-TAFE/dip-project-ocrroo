@@ -204,8 +204,10 @@ def video(play_filename):
         global filename
         filename = play_filename
         video_data = utils.get_video_data(filename)
-        if video_data['processed'] is None:
-            threading.Thread(target=pre_process.process_video, args=(filename,))
+        if video_data['processed'] == False:
+            print(filename)
+            threading.Thread(target=pre_process.process_video, args=(str(filename),)).start()
+            #pre_process.process_video(str(filename))
         return render_template("player.html", filename=filename, video_data=video_data)
     return redirect("/")
 
