@@ -1,4 +1,4 @@
-from utils import config, get_vid_save_path
+from utils import config, get_vid_save_path, update_user_video_data
 import cv2
 from PIL import Image
 import pytesseract
@@ -51,8 +51,10 @@ def process_video(video_file_name):
         response = LlamaInterface.query(prompt)
         if(response != "No Code"):
             print(addsample(step_seconds, response))
+            dictEntry = {'timestamp': step_seconds, 'capture_content': response}
+            update_user_video_data(video_file_name, step_seconds, dictEntry)
 
-        if(response != "No Code"): #Did we find code?
+        if("No Code" not in response and len(response) < 10): #Did we find code?
             if(was_last_step_code == False): #If we didn't find code last time, we want to skip back a bit
                 step_seconds -= 4
             else: #If we did find code last time, we want to skip forward a bit
