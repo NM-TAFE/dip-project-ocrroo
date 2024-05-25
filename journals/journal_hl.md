@@ -38,3 +38,47 @@ Mark all that applied this week
 
 
 
+
+
+### <14/May>
+#### Summary
+> What work did you do this week
+- Participated in Key User Stories, acting and thinking as a visually impaired person, 'What I would like to do with Tesseract OCR', 'what could be better in utilising Tesseract OCR and screen reader.'
+- 
+>What work you are planning to do next week
+- Feasibility check for pre-processing downloaded video to generate a code snippet and to add timestamps when a code block begins and ends.
+- Making viable solution that doesn't require OpenAI(Chatgpt)
+- Considering performance impact for realtime OCR
+
+> Any blockers
+- Getting OpenAI API(pricing)
+- UI not navigable
+- Hotkey issues
+- Downloading video required
+- Too much configuration to work
+- Poor directory structure in code base
+
+
+
+#### Issues and PRs
+> N/A
+
+#### Evidence
+Mark all that applied this week
+- [V] Attended class
+- [] Responded to PRs/Issues
+- [V] Met with the team online. Forum Microsoft Teams
+- [] Commits to group repo
+
+> warning: If you were not able to mark any of these on a particular week, please email your lecturer with the reason.
+
+#### Retrospective
+
+> In what ways have your thoughts about the design changed this week and why?
+- In case of bad internet connection, for the realtime code scan-script-generate process slow internet speed could change youtube video quality and could lead to lower accuracy of transcript as OCR has limited ability of scanning from low quality screen or video.  
+> Did you discuss these ideas with the group? What was the outcome?
+- At the moment, we are dealing with only downloaded video, we still can choose video quality to download    
+> How did you validate your progress this week?
+- I have been searching for viable solution without using openAI and Tesseract as our group is aiming to make it, finding out other LLM or seeing if we can make our own.
+
+
