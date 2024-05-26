@@ -1,7 +1,7 @@
 ## Journal content
 Your journal entry should contain the following (you can use Obsedian if you like to set it up)
 
-### <7/May>
+## <7/May>
 #### Summary
 > What work did you do this week
 - During the class, our team(Team facilitate) has had a chat for how to improve ocr visually and functionally for visual impairment people who need a code script from video. 
@@ -40,7 +40,7 @@ Mark all that applied this week
 
 
 
-### <14/May>
+## <14/May>
 #### Summary
 > What work did you do this week
 - Participated in Key User Stories, acting and thinking as a visually impaired person, 'What I would like to do with Tesseract OCR', 'what could be better in utilising Tesseract OCR and screen reader.'
@@ -80,5 +80,46 @@ Mark all that applied this week
 - At the moment, we are dealing with only downloaded video, we still can choose video quality to download    
 > How did you validate your progress this week?
 - I have been searching for viable solution without using openAI and Tesseract as our group is aiming to make it, finding out other LLM or seeing if we can make our own.
+
+
+
+
+## <21/May>
+#### Summary
+> What work did you do this week
+- Considered converting the Flask app to a desktop app instead.
+- Searching and testing new LLM (Ollama, Llama 3, 4.7Gb model) to try to replace existing openAI then checking CPU usage and its response speed.
+- Considered what issues I can indentify for CertIV students to contribute. 
+>What work you are planning to do next week
+- Finding out any ways to improve performance in CPU usage and response time.
+- Searching for how to apply multiple OCRs to identify code frame and add timestamps, and with other OCR to extract and convert text to code.
+
+> Any blockers
+- Unexpected slow response speed of Llama 3 model and fairly high CPU usage
+- Recognition accuracy of detecting differences in code 
+
+
+
+
+#### Issues and PRs
+> N/A
+
+#### Evidence
+Mark all that applied this week
+- [V] Attended class
+- [] Responded to PRs/Issues
+- [V] Met with the team online. Forum Microsoft Teams
+- [] Commits to group repo
+
+> warning: If you were not able to mark any of these on a particular week, please email your lecturer with the reason.
+
+#### Retrospective
+
+> In what ways have your thoughts about the design changed this week and why?
+- Personally think that using various of Ollama models could be more beneficial in pricing and performance rather than training our own LLM or relying on GPT 3.5.   
+> Did you discuss these ideas with the group? What was the outcome?
+- I need more time to test more models and to see if it can be more useful and replaceable in actual use.     
+> How did you validate your progress this week?
+- I've downloaded some models of Ollama and tested them on my PC.
 
 
