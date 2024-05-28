@@ -250,12 +250,15 @@ def is_video_downloaded(filename: str) -> Optional[bool]:
     return True
 
 
-def update_user_video_data(filename: str, progress: Optional[float] = None, capture: Optional[dict] = None) -> None:
+def update_user_video_data(filename: str, progress: Optional[float] = None, capture: Optional[dict] = None,
+                           processed: Optional[bool] = None, processing: Optional[bool] = None) -> None:
     """
     Updates progress or capture content information in user data storage for specific video
     :param filename: Filename of video to update
     :param progress: New progress value to update
     :param capture: New capture to append
+    :param processed: pre-process completed
+    :param processing: whether pre-processing is currently running
     """
     user_data = read_user_data()
     if user_data is None:
@@ -264,6 +267,10 @@ def update_user_video_data(filename: str, progress: Optional[float] = None, capt
         if record["filename"] == filename:
             if progress is not None:
                 record["progress"] = round(progress)
+            if processed is not None:
+                record["processed"] = processed
+            if processing is not None:
+                record["processing"] = processing
             if capture is not None:
                 record["captures"].append(capture)
     with open("data/userdata.json", "w") as json_data:
@@ -306,6 +313,7 @@ def add_video_to_user_data(filename: str, video_title: str, video_hash: str, you
         "progress": 0,
         "captures": [],
         "processed": False,
+        "processing": False,
     }
     if youtube_url is not None:
         new_video["youtube_url"] = youtube_url

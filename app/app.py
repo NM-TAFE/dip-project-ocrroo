@@ -204,7 +204,7 @@ def video(play_filename):
         global filename
         filename = play_filename
         video_data = utils.get_video_data(filename)
-        if video_data['processed'] == False:
+        if video_data['processed'] is False and video_data['processing'] is False:
             print(filename)
             threading.Thread(target=pre_process.process_video, args=(str(filename),)).start()
             #pre_process.process_video(str(filename))

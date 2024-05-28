@@ -43,6 +43,7 @@ def process_video(video_file_name):
     step_seconds = 1
     video_length_seconds = video_length // video_fps
     was_last_step_code = False
+    update_user_video_data(video_file_name, None, None, False, True)
     while step_seconds < video_length_seconds:
         print(f"{seconds_to_timestamp(step_seconds)}/{seconds_to_timestamp(video_length_seconds)}")
         cap.set(cv2.CAP_PROP_POS_FRAMES, step_seconds * video_fps)
@@ -52,7 +53,7 @@ def process_video(video_file_name):
         if(response != "No Code"):
             print(addsample(step_seconds, response))
             dictEntry = {'timestamp': step_seconds, 'capture_content': response}
-            update_user_video_data(video_file_name, step_seconds, dictEntry)
+            update_user_video_data(video_file_name, None, dictEntry)
 
         if("No Code" not in response and len(response) < 10): #Did we find code?
             if(was_last_step_code == False): #If we didn't find code last time, we want to skip back a bit
@@ -63,4 +64,4 @@ def process_video(video_file_name):
         else: #We didn't find code skip forward
             step_seconds += 5
             was_last_step_code = False
-
+    update_user_video_data(video_file_name, None, None, True, False)
