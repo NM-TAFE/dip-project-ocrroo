@@ -151,7 +151,7 @@ def send_code_snippet_to_ide(filename: str, code_snippet: str) -> bool:
     if file_path is None:
         return False
     try:
-        subprocess.run([config("AppSettings", "ide_executable"), file_path], shell=True)
+        subprocess.run([config("AppSettings", "ide_executable"), file_path])
         logging.info("Successfully opened code snippet in IDE")
         return True
     except subprocess.SubprocessError as error:
