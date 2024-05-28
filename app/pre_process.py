@@ -20,12 +20,6 @@ def formatted_prompt(extracted_text: str, language: str) -> str:
         f"correct any indentation errors, but do not add any code that does not exist in the sample and make sure to preserve comments" \
         f"Do NOT return any explanations or embellishment, only code as plaintext or 'No Code'"
 
-def addsample(seconds, content):
-    #format seconds as mm:ss
-    minutes = seconds // 60
-    seconds = seconds % 60
-    return f"\n[{minutes:02}:{seconds:02}]\n{content}"
-
 def seconds_to_timestamp(seconds):
     minutes = seconds // 60
     seconds = seconds % 60
@@ -50,12 +44,11 @@ def process_video(video_file_name):
         text = run_ocr(*cap.read())
         prompt = formatted_prompt(text, "c#")
         response = LlamaInterface.query(prompt)
-        if(response != "No Code"):
-            print(addsample(step_seconds, response))
+
+        if("No Code" not in response): #Did we find code?
+            print(response)
             dictEntry = {'timestamp': step_seconds, 'capture_content': response}
             update_user_video_data(video_file_name, None, dictEntry)
-
-        if("No Code" not in response and len(response) < 10): #Did we find code?
             if(was_last_step_code == False): #If we didn't find code last time, we want to skip back a bit
                 step_seconds -= 4
             else: #If we did find code last time, we want to skip forward a bit
