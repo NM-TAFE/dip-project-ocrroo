@@ -267,7 +267,7 @@ def update_user_video_data(filename: str, progress: Optional[float] = None, capt
         if record["filename"] == filename:
             if progress is not None:
                 record["progress"] = round(progress)
-            if processed is not None:
+            if processed:
                 record["processed"] = processed
             if processing is not None:
                 record["processing"] = processing

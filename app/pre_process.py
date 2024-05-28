@@ -1,4 +1,4 @@
-from utils import config, get_vid_save_path, update_user_video_data
+from utils import config, get_vid_save_path, update_user_video_data, get_video_data
 import cv2
 from PIL import Image
 import pytesseract
@@ -65,3 +65,31 @@ def process_video(video_file_name):
             step_seconds += 5
             was_last_step_code = False
     update_user_video_data(video_file_name, None, None, True, False)
+
+
+def format_user_data(video_file_name, timestamp, dictEntry):
+    """
+    Update user video data with new capture, ensuring sorted by timestamp and no duplicates
+    :param video_file_name: The name of the video file
+    :param timestamp: The timestamp of the capture
+    :param dictEntry: The capture data to be added
+    """
+    timestamp = timestamp
+
+    video_data = get_video_data(video_file_name)
+
+    # If the video is processed, do not update the captures
+    if video_data.get('processed', True):
+        return
+
+    # Remove existing entry with the same timestamp if it exists
+    video_data['captures'] = [capture for capture in video_data['captures'] if capture.get('timestamp') != timestamp]
+
+    # Add the new capture entry
+    video_data['captures'].append(dictEntry)
+
+    # Sort captures by timestamp
+    video_data['captures'].sort(key=lambda x: x['timestamp'])
+
+    # Save updated video data
+    update_user_video_data(video_file_name, timestamp, video_data)
