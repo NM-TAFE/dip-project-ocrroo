@@ -4,6 +4,8 @@ from PIL import Image
 import pytesseract
 import os
 from remotellama import LlamaInterface
+from flask_socketio import SocketIO
+from utils import config
 
 def run_ocr(ret, frame):
     temp_frame = frame
@@ -25,7 +27,8 @@ def seconds_to_timestamp(seconds):
     seconds = seconds % 60
     return f"[{minutes:02}:{seconds:02}]"
 
-def process_video(video_file_name):
+
+def process_video(video_file_name, socketio):
     print(f"Processing video {video_file_name}")
     cap = cv2.VideoCapture(get_vid_save_path() + video_file_name)
     if not cap.isOpened(): 
@@ -42,13 +45,13 @@ def process_video(video_file_name):
         print(f"{seconds_to_timestamp(step_seconds)}/{seconds_to_timestamp(video_length_seconds)}")
         cap.set(cv2.CAP_PROP_POS_FRAMES, step_seconds * video_fps)
         text = run_ocr(*cap.read())
-        prompt = formatted_prompt(text, "c#")
+        prompt = formatted_prompt(text, config("UserSettings", "programming_language"))
         response = LlamaInterface.query(prompt)
-
+        print(response)
         if("No Code" not in response): #Did we find code?
-            print(response)
             dictEntry = {'timestamp': step_seconds, 'capture_content': response}
             update_user_video_data(video_file_name, None, dictEntry)
+            socketio.emit('update_timestamps', data=video_file_name)
             if(was_last_step_code == False): #If we didn't find code last time, we want to skip back a bit
                 step_seconds -= 4
             else: #If we did find code last time, we want to skip forward a bit

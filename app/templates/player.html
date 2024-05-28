@@ -100,6 +100,23 @@
                 oc.style.height = window.innerHeight - (oc.getBoundingClientRect().top + pc.getBoundingClientRect().top) + "px";
                 cc.style.maxWidth = cc.offsetWidth + "px";
             </script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+            <script type="text/javascript" charset="utf-8">
+              $(document).ready(function() {
+                  const socket = io.connect('http://' + document.domain + ':' + location.port);
+
+                socket.on('update_timestamps', async function (data) {
+                    const response = await fetch('http://' + document.domain + ':' + location.port + `/get_video_data/${data}`);
+                    const captures = await response.json();
+                    console.log(captures);
+                    const captureHTML = captures.map(function(capture) {
+                            return '<div class="thumbnail-wrapper">' +
+                                `<span class="timestamp" onclick="seekToTimestamp(${capture['timestamp'] })">${capture['timestamp'] }</span></div>`;
+                        });
+                    $('#thumbnailContainer').html(captureHTML);
+                })
+              });
+        </script>
         </div>
     </div>
 </section>
