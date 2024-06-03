@@ -17,9 +17,9 @@ def run_ocr(ret, frame):
 def formatted_prompt(extracted_text: str, language: str) -> str:
         return f"Analyse the following {language} code snippet:\n\n{extracted_text}\n\n" \
         f"If no '{language}' code is present, say 'No Code' and disregard the remaining prompt. Otherwise if '{language}' code is detected:" \
-        "If The Code is incomplete or has errors then prfix with 'Incomplete Code'" \
+        "If The Code is incomplete or has errors then prefix with 'Incomplete Code'" \
         f"correct any indentation errors, but do not add any code that does not exist in the sample and make sure to preserve comments" \
-        f"Do NOT return any explanations or embellishment, only code as plaintext or 'No Code'"
+        f"Do NOT embellish the code, simply return the code as a codeblock or 'No Code'"
 
 def seconds_to_timestamp(seconds):
     minutes = seconds // 60
@@ -37,6 +37,7 @@ def process_video(video_file_name, socketio):
     video_length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     video_fps = int(cap.get(cv2.CAP_PROP_FPS))
     step_seconds = 1
+    steps_with_code = []
     video_length_seconds = video_length // video_fps
     was_last_step_code = False
     update_user_video_data(video_file_name, None, None, False, True)
@@ -46,10 +47,14 @@ def process_video(video_file_name, socketio):
         text = run_ocr(*cap.read())
         prompt = formatted_prompt(text, config("UserSettings", "programming_language"))
         response = LlamaInterface.query(prompt)
+        if("```" in response):
+            response = response.split("```")[2]
         print(response)
-        if("No Code" not in response): #Did we find code?
+
+        if("No Code" not in response and step_seconds not in steps_with_code): #Did we find code?
             dictEntry = {'timestamp': step_seconds, 'capture_content': response}
             update_user_video_data(video_file_name, None, dictEntry)
+            steps_with_code.append(step_seconds)
             socketio.emit('update_timestamps', data=video_file_name)
             if(was_last_step_code == False): #If we didn't find code last time, we want to skip back a bit
                 step_seconds -= 4

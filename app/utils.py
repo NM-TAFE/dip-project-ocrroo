@@ -273,6 +273,7 @@ def update_user_video_data(filename: str, progress: Optional[float] = None, capt
                 record["processing"] = processing
             if capture is not None:
                 record["captures"].append(capture)
+                record["captures"] = sorted(record["captures"], key=lambda x: x["timestamp"])
     with open("data/userdata.json", "w") as json_data:
         json.dump(user_data, json_data, indent=4)
 
