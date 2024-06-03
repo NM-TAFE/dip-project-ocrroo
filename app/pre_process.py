@@ -4,7 +4,6 @@ from PIL import Image
 import pytesseract
 import os
 from remotellama import LlamaInterface
-from flask_socketio import SocketIO
 from utils import config
 
 def run_ocr(ret, frame):
