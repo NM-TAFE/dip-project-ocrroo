@@ -61,20 +61,3 @@ class LlamaInterface:
                 return [response_data.get("prompt"), response_data.get("oldPrompt")]
         else:
             return response_data 
-
-# Example usage
-question = "1 fish 2 fish, red fish blue fish."
-response = LlamaInterface.query(question)
-print(response)
-print("----------------------------------------------")
-response = LlamaInterface.query_with_default(question)
-print(response)
-print("----------------------------------------------")
-current_prompt = LlamaInterface.set_prompt()
-print(current_prompt)
-print("----------------------------------------------")
-new_values = LlamaInterface.set_prompt("how many letters are in this string \"%QUESTION%\"")
-print(new_values)
-print("----------------------------------------------")
-response = LlamaInterface.query_with_default(question)
-print(response)
