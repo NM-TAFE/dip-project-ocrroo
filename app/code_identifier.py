@@ -40,7 +40,7 @@ class CodeIdentifier:
         # Make predictions on the test data
         self.nb_predict_y = self.nb_classifier.predict(x_test_counts)
 
-    def __predict_language(self, clf, vectorizer, code):
+    def __predict_language(self, clf, vectorizer, code) -> str:
         # Preprocess the code
         code_counts = vectorizer.transform([code])
 
@@ -56,7 +56,7 @@ class CodeIdentifier:
         """
         return accuracy_score(self.y_test, self.nb_predict_y)
 
-    def identify(self, code) -> str:
+    def identify(self, code: str) -> str:
         """
         Identify if the string given is either code or plain text.
         code: String.
