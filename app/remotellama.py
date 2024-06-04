@@ -60,4 +60,4 @@ class LlamaInterface:
             else:
                 return [response_data.get("prompt"), response_data.get("oldPrompt")]
         else:
-            return response_data 
+            return response_data
