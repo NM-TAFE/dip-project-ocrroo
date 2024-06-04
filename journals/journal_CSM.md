@@ -79,6 +79,7 @@ output to only show the code currently on the screen.
 ### Issues and PRs
 - fixed scaling issue on video player
 - fixed automatic timestamp update
+- https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-awesome/pull/23
 
 ### Evidence
 Mark all that applied this week
