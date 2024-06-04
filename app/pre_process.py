@@ -45,7 +45,7 @@ def process_video(video_file_name, socketio):
     update_user_video_data(video_file_name, None, None, False, True)
     while step_seconds < video_length_seconds:
         seconds_since_start = time.time() - start_time
-        print(f"{seconds_to_timestamp(step_seconds)}/{seconds_to_timestamp(video_length_seconds)}  Processing for: {seconds_to_timestamp(seconds_since_start)}")
+        print(f"{seconds_to_timestamp(step_seconds)}/{seconds_to_timestamp(video_length_seconds)}  Processing for: {seconds_to_timestamp(int(seconds_since_start))}")
         cap.set(cv2.CAP_PROP_POS_FRAMES, step_seconds * video_fps)
         text = run_ocr(*cap.read())
         response = LlamaInterface.query_with_default(text)
