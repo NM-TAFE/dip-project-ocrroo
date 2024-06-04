@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -19,9 +21,9 @@ class CodeIdentifier:
     if the string given is either code or plain text.
     """
 
-    def __init__(self):
+    def __init__(self, dataset: str = "code_identifier_dataset.csv"):
         # Load the dataset
-        df = pd.read_csv('code_identifier_dataset.csv')
+        df = pd.read_csv(dataset)
 
         # Split the data into training and testing sets
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(df['code'], df['language'],
