@@ -53,7 +53,7 @@
                 {% for capture in video_data["captures"] %}
                 <div class="thumbnail-wrapper">
 {#                    <img src="{{ url_for('thumbnail', filename=capture["thumbnail"]) }}" alt="Thumbnail" class="thumbnail">#}
-                    <span class="timestamp" onclick="seekToTimestamp({{ capture["timestamp"] }})">{{ capture["timestamp"] }}</span>
+                    <span class="timestamp"><button onclick="seekToTimestamp('{{capture['timestamp'] }}')">{{capture['timestamp']}}</button></span>
                 </div>
                 {% endfor %}
             </div>
@@ -111,11 +111,21 @@
                     console.log(captures);
                     const captureHTML = captures.map(function(capture) {
                             return '<div class="thumbnail-wrapper">' +
-                                `<span class="timestamp" onclick="seekToTimestamp(${capture['timestamp'] })">${capture['timestamp'] }</span></div>`;
+                                `<span class="timestamp"><button onclick="seekToTimestamp('${capture['timestamp'] }')">${capture['timestamp'] }</button></span></div>`;
                         });
                     $('#thumbnailContainer').html(captureHTML);
                 })
               });
+              function seekToTimestamp(timestamp) {
+                console.log(`seeking to` + timestamp);
+                    const video = document.getElementById('videoPlayer');
+                    //convert 00:00 to seconds
+                    const time = timestamp.split(':');
+                    const minutes = parseInt(time[0]);
+                    const seconds = parseInt(time[1]);
+                    const totalSeconds = (minutes * 60) + seconds;
+                  video.currentTime = totalSeconds;
+              }
         </script>
         </div>
     </div>
