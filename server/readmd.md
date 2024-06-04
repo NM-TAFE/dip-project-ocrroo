@@ -1,0 +1,1 @@
+this is a copy of the backend llama code, this can be edited but changes should be alerted to @MasterAirscrachDev (airsrach@gmail.com) otherwise they won't be brought to the actual server.

@@ -14,8 +14,8 @@ def run_ocr(ret, frame):
     else:
         return None
     
-def formatted_prompt(extracted_text: str, language: str) -> str:
-        return f"Analyse the following {language} code snippet:\n\n{extracted_text}\n\n" \
+def formatted_prompt(language: str) -> str:
+        return f"Analyse the following {language} code snippet:\n\n%QUESTION%\n\n" \
         f"If no '{language}' code is present, say 'No Code' and disregard the remaining prompt. Otherwise if '{language}' code is detected:" \
         "If The Code is incomplete or has errors then prefix with 'Incomplete Code'" \
         f"correct any indentation errors, but do not add any code that does not exist in the sample and make sure to preserve comments" \
@@ -32,7 +32,7 @@ def process_video(video_file_name, socketio):
     cap = cv2.VideoCapture(get_vid_save_path() + video_file_name)
     if not cap.isOpened(): 
         print("Error opening video file")
-
+    LlamaInterface.set_prompt(formatted_prompt(config("UserSettings", "programming_language")))
     # while the video is not finished
     video_length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     video_fps = int(cap.get(cv2.CAP_PROP_FPS))
@@ -45,8 +45,8 @@ def process_video(video_file_name, socketio):
         print(f"{seconds_to_timestamp(step_seconds)}/{seconds_to_timestamp(video_length_seconds)}")
         cap.set(cv2.CAP_PROP_POS_FRAMES, step_seconds * video_fps)
         text = run_ocr(*cap.read())
-        prompt = formatted_prompt(text, config("UserSettings", "programming_language"))
-        response = LlamaInterface.query(prompt)
+        #prompt = formatted_prompt(text, config("UserSettings", "programming_language"))
+        response = LlamaInterface.query_with_default(text)
         if("```" in response):
             response = response.split("```")[2]
         print(response)
