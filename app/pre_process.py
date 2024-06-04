@@ -47,8 +47,9 @@ def process_video(video_file_name, socketio):
         text = run_ocr(*cap.read())
         #prompt = formatted_prompt(text, config("UserSettings", "programming_language"))
         response = LlamaInterface.query_with_default(text)
+        #print(response)
         if("```" in response):
-            response = response.split("```")[2]
+            response = response.split("```")[1]
         print(response)
 
         if("No Code" not in response and step_seconds not in steps_with_code): #Did we find code?
