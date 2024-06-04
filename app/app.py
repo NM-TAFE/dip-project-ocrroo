@@ -34,6 +34,7 @@ def index():
     Return the home page view/template with setup progress and parsed video data
     :return: Rendered template for home page
     """
+    logging.debug("The index page has been accessed.")
     parsed_video_data = utils.parse_video_data()
     return render_template("index.html",
                            continue_watching=parsed_video_data["continue_watching"],
@@ -46,6 +47,7 @@ def settings():
     Return the settings view/template
     :return: Rendered template for settings page
     """
+    logging.debug("The settings page has been accessed.")
     current_settings = utils.get_current_settings()
     return render_template("settings.html", current_settings=current_settings)
 
@@ -57,6 +59,7 @@ def web_cli_endpoint():
     :return: Response from web_cli parser as string or dict
     """
     data = request.get_json()
+    logging.debug(f"Received web_cli request: {data}")
     return web_cli.parse_command(data["command"])
 
 
@@ -66,6 +69,7 @@ def collaborate():
     Return collaborate start view/template
     :return: Rendered template for collaborate start page
     """
+    logging.debug("The collaborate page has been accessed.")
     return render_template("collaborate.html")
 
 
@@ -75,6 +79,7 @@ def create_collaborate():
     Return collaborate create view/template
     :return: Rendered template for collaborate create page
     """
+    logging.debug("The collaborate page has been accessed.")
     return render_template("collaborate-create.html")
 
 
@@ -84,6 +89,7 @@ def join_collaborate():
     Return collaborate join view/template
     :return: Rendered template for join collaborate page
     """
+    logging.debug("The collaborate page has been accessed.")
     pass
 
 
@@ -93,6 +99,7 @@ def upload():
     Return upload video view/template with YouTube config variable
     :return: Rendered template for upload page
     """
+    logging.debug("The upload page has been accessed.")
     return render_template("upload.html",
                            use_youtube_downloader=eval(utils.config("Features", "use_youtube_downloader")))
 
@@ -103,6 +110,7 @@ def serve_video():
     Serve local/downloaded video file to view/template
     :return: Video file
     """
+    logging.debug(f"Serving video: {filename}")
     video_path = f'{utils.get_vid_save_path()}{filename}'
     return send_file(video_path)
 
@@ -115,6 +123,7 @@ def upload_youtube_id(video_id: str):
     :return: Redirect to appropriate page after downloading or failing
     """
     youtube_url = f"https://www.youtube.com/watch?v={video_id}"
+    logging.debug(f"Youtube video with ID is beign uploaded: {video_id}")
     return redirect(utils.download_youtube_video(youtube_url))
 
 
@@ -125,6 +134,7 @@ def capture_at_timestamp():
     :return: Extracted and formatted code from timestamp
     """
     data = request.get_json()
+    logging.debug(f"Code captured at timestamp: {data.get('timestamp')}")
     return ExtractText.extract_code_at_timestamp(f"{filename}", data.get('timestamp'))
 
 
@@ -136,6 +146,7 @@ def send_to_ide():
     """
     code = request.get_json().get("code_snippet")
     unescaped_code = html.unescape(code)
+    logging.debug("Code snippet is being sent to IDE")
     if utils.send_code_snippet_to_ide(filename, unescaped_code):
         return "success"
     else:
@@ -150,6 +161,7 @@ def update_video_data():
     """
     data = request.get_json()
     if "progress" in data:
+        logging.debug(f"Updating video for {filename}: {data['progress']}")
         utils.update_user_video_data(filename, progress=data["progress"])
         return "success"
     elif "capture" in data:
@@ -170,6 +182,7 @@ def upload_video():
     file = request.files["localFileInput"]
     # TODO: Move this into separate function, too messy to have this logic in route method
     if file:
+        logging.debug(f"Uploading video file:{file.filename}: {youtube_url}")
         if not os.path.exists(f"{utils.get_vid_save_path()}"):
             os.makedirs(f"{utils.get_vid_save_path()}")
         file.save(f"{utils.get_vid_save_path()}" + file.filename)
@@ -189,7 +202,6 @@ def upload_video():
     logging.error("Failed to upload video file")
     return redirect("/upload")
 
-
 @app.route("/play_video/<play_filename>")
 def video(play_filename):
     """
@@ -198,6 +210,7 @@ def video(play_filename):
     :return: Rendered template of video player
     """
     if utils.filename_exists_in_userdata(play_filename):
+        logging.debug(f"Playing video file: {play_filename}")
         global filename
         filename = play_filename
         return render_template("player.html", filename=filename, video_data=utils.get_video_data(filename))
@@ -212,6 +225,7 @@ def delete_video(delete_filename):
     :return: Redirect to home page
     """
     if utils.filename_exists_in_userdata(delete_filename):
+        logging.debug(f"Deleting video file: {delete_filename}")
         utils.delete_video_from_userdata(delete_filename)
     return redirect("/")
 
@@ -219,6 +233,7 @@ def delete_video(delete_filename):
 @app.route("/update_settings", methods=['GET', 'POST'])
 def update_settings():
     if request.method == "POST":
+        logging.debug(f"Updating settings: {request.form}")
         new_values = utils.extract_form_values(request)
         utils.update_configuration(new_values)
         return redirect('/settings')
@@ -231,6 +246,7 @@ def reset_settings():
     print("Current working directory:", os.getcwd())
     # Delete the existing config.ini file
     if os.path.exists('config.ini'):
+        logging.debug(f"Resetting settings: {request.form}")
         os.remove('config.ini')
     shutil.copy('config.example.ini', 'config.ini')
     current_settings = utils.get_current_settings()
@@ -242,6 +258,7 @@ def update_tesseract_path():
     global cancel_search_flag
 
     if request.method == 'POST' and request.form.get('cancel_search'):
+        logging.debug(f"Updating tesseract path: {request.form}")
         # Set the flag to indicate cancellation
         cancel_search_flag = True
         message = 'Tesseract search canceled.'
