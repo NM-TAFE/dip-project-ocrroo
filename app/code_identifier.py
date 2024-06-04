@@ -21,8 +21,7 @@ class CodeIdentifier:
 
     def __init__(self):
         # Load the dataset
-        # todo fix this
-        df = pd.read_csv('csv//programming_languages_dataset.csv')
+        df = pd.read_csv('code_identifier_dataset.csv')
 
         # Split the data into training and testing sets
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(df['code'], df['language'],
