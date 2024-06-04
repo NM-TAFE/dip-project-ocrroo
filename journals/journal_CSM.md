@@ -84,5 +84,5 @@ output to only show the code currently on the screen.
 Mark all that applied this week
 - [x] Attended class
 - [x] Responded to PRs/Issues
-- [] Met with the team online.
+- [x] Met with the team online.
 - [x] Commits to group repo
