@@ -5,6 +5,7 @@ import pytesseract
 import os
 from remotellama import LlamaInterface
 from utils import config
+import time
 
 def run_ocr(ret, frame):
     temp_frame = frame
@@ -40,12 +41,13 @@ def process_video(video_file_name, socketio):
     steps_with_code = []
     video_length_seconds = video_length // video_fps
     was_last_step_code = False
+    start_time = time.time()
     update_user_video_data(video_file_name, None, None, False, True)
     while step_seconds < video_length_seconds:
-        print(f"{seconds_to_timestamp(step_seconds)}/{seconds_to_timestamp(video_length_seconds)}")
+        seconds_since_start = time.time() - start_time
+        print(f"{seconds_to_timestamp(step_seconds)}/{seconds_to_timestamp(video_length_seconds)}  Processing for: {seconds_to_timestamp(seconds_since_start)}")
         cap.set(cv2.CAP_PROP_POS_FRAMES, step_seconds * video_fps)
         text = run_ocr(*cap.read())
-        #prompt = formatted_prompt(text, config("UserSettings", "programming_language"))
         response = LlamaInterface.query_with_default(text)
         #print(response)
         if("```" in response):
