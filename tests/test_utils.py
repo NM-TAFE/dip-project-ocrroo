@@ -118,13 +118,13 @@ def test_hash_string():
 
 def test_get_output_path(mocker):
     test_output_paths = {
-        "c:\\users\\program files\\app": "c:\\users\\program files\\app\\",
-        "output_path": os.path.dirname(os.getcwd()) + "\\out\\",
+        "c:\\users\\program files\\app\\": "c:\\users\\program files\\app\\",
+        "output_path": os.path.dirname(os.getcwd()) + "/out",
         "videos\\my_videos\\": "videos\\my_videos\\",
     }
     for paths in test_output_paths:
         mocker.patch("app.utils.config", return_value=paths)
-        assert utils.get_output_path() == test_output_paths[paths]
+        assert utils.get_output_path() == test_output_paths[paths] + '/'
 
 
 def test_file_already_exists_true(mocker):
