@@ -77,8 +77,7 @@ My team met in class and we all worked on fixing the code
 output to only show the code currently on the screen.
 
 ### Issues and PRs
-- https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-awesome/pull/4
-- https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-awesome/pull/6
+- fixed scaling issue on video player
 - fixed automatic timestamp update
 
 ### Evidence
