@@ -8,12 +8,12 @@ If you have found any issues or bugs in the code or you have feature ideas, plea
 
 ### Installing the Project
 
-Please follow the [Installation Guide](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-awesome/wiki/Installation-Guide) to install and run this project.
+Please follow the [Installation Guide](https://github.com/NM-TAFE/dip-project-ocrroo/wiki/Installation-Guide) to install and run this project.
 
 ### Contributing to the Project
 
-Please follow the [Contribution Guide](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-awesome/wiki/Contribution-Guide) when contributing to this project.
+Please follow the [Contribution Guide](https://github.com/NM-TAFE/dip-project-ocrroo/wiki/Contribution-Guide) when contributing to this project.
 
 ### Style Guide
 
-Please adhere to the [Style Guide](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-awesome/wiki/Style-Guide) when contributing to this project.
+Please adhere to the [Style Guide](https://github.com/NM-TAFE/dip-project-ocrroo/wiki/Style-Guide) when contributing to this project.
