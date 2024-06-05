@@ -93,7 +93,7 @@ in the [Wiki](https://github.com/NM-TAFE/project-advanced-ui-development-team-me
 
 ---
 
-- To view the code of conduct, please visit the [Code of Conduct] page in the [Wiki](https://github.com/NM-TAFE/project-advanced-ui-development-team-mental-capacity/wiki).
+- To view the code of conduct, please visit the [Code of Conduct](CODE_OF_CONDUCT.md) page in the [Wiki](https://github.com/NM-TAFE/project-advanced-ui-development-team-mental-capacity/wiki).
 
 ## License
 

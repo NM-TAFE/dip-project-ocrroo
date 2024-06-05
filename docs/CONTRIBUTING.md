@@ -18,7 +18,7 @@ N.B While working on this project the NM-TAFE code of conduct still applies.
 ### Project set up
 
 1. Fork the repo to your local device
-2. Follow the steps on this link to set up the project [docs_readme][README.md](README.md)
+2. Follow the steps on this link to set up the project [README](README.md)
 
 ## ISSUES
 
@@ -52,5 +52,5 @@ This project is licensed under the [Creative Commons Zero v1.0 Universal](../LIC
 
 Before contributing check this link for the style guide for this project which includes Code lay-out, Comments, Docstrings and naming conversions
 
-- Project [STYLE_GUIDE.md](STYLE_GUIDE.md)
+- Project [Style Guide](STYLE_GUIDE.md)
 - PEP 8 – Style Guide for Python Code | peps.python.org
