@@ -37,7 +37,7 @@ The program reads code from videos to assist visually impaired developers in usi
 To install and run this project, please follow the [Installation Guide](https://github.com/NM-TAFE/project-advanced-ui-development-team-mental-capacity/wiki/Installation-Guide)
 in the [Wiki](https://github.com/NM-TAFE/project-advanced-ui-development-team-mental-capacity/wiki).
 
-### System Requirements
+ ### System Requirements
 
 * **Operating System**: Windows, macOS, or Linux
 * **Python Version**: 3.9 or later
@@ -55,7 +55,6 @@ in the [Wiki](https://github.com/NM-TAFE/project-advanced-ui-development-team-me
 	+ threadpoolctl==3.5.0
 	+ tzdata==2024.1
 	+ wxPython==4.2.1
-
 #### Basic Installation
 
 1. Navigate to the projects root folder
