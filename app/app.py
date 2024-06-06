@@ -1,6 +1,7 @@
 import wx
 import wx.media
 import logging
+from typing import Callable
 
 
 class VideoPlayerFrame(wx.Frame):
@@ -26,6 +27,12 @@ class VideoPlayerFrame(wx.Frame):
 
         panel.SetSizer(sizer)
 
+        # Create menu bar listings.
+        menu_bar = MenuBar()
+        menu_bar.create_media_menu(self.video_player.open_file, self.on_quit)
+        menu_bar.create_help_menu(self.on_shortcut_dialog)
+        self.SetMenuBar(menu_bar)
+
         # Events.
         self.Bind(wx.EVT_CHAR_HOOK, self.on_key_press)
 
@@ -38,6 +45,8 @@ class VideoPlayerFrame(wx.Frame):
         if event.ControlDown():  # Ctrl
             if keycode == ord('O'):  # Ctrl+O - Open file dialog
                 self.video_player.open_file()
+            elif keycode == ord('Q'):  # Ctrl+Q - Quit
+                self.on_quit(event)
         elif keycode == wx.WXK_SPACE:  # Space - Play/Pause
             self.video_player.play_video()
         elif keycode == wx.WXK_LEFT:  # ← - Skip back
@@ -49,6 +58,57 @@ class VideoPlayerFrame(wx.Frame):
         elif keycode == wx.WXK_DOWN:  # ↓ - Volume down
             self.video_player.update_volume(-0.1)
         event.Skip()
+
+    def on_quit(self, event=None):
+        self.Close()
+
+    def on_shortcut_dialog(self, event=None):
+        about_dialog = ShortcutDialog(self)
+        about_dialog.ShowModal()
+
+
+class MenuBar(wx.MenuBar):
+    def __init__(self):
+        super(MenuBar, self).__init__()
+
+    def create_media_menu(self, open_func: Callable, quit_func: Callable):
+        media_menu = wx.Menu()
+        open_file_item = media_menu.Append(wx.ID_ANY, 'Open File\tCtrl-O')
+        self.Bind(wx.EVT_MENU, open_func, open_file_item)
+
+        quit_item = media_menu.Append(wx.ID_ANY, 'Quit\tCtrl-P')
+        self.Bind(wx.EVT_MENU, quit_func, quit_item)
+
+        self.Append(media_menu, "Media")
+
+    def create_help_menu(self, shortcut_dialog_func: Callable):
+        help_menu = wx.Menu()
+        shortcut_item = help_menu.Append(wx.ID_ANY, 'Keyboard Shortcuts')
+        self.Bind(wx.EVT_MENU, shortcut_dialog_func, shortcut_item)
+
+        self.Append(help_menu, "Help")
+
+
+class ShortcutDialog(wx.Dialog):
+    def __init__(self, parent):
+        super(ShortcutDialog, self).__init__(parent, title="About")
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        shortcuts = [
+            "Ctrl+O: Open File",
+            "Ctrl+Q: Quit",
+            "Space: Play/Pause",
+            "Left/Right Arrows: Skip Forward/Back",
+            "Up/Down Arrows: Volume Up/Down",
+        ]
+
+        for shortcut in shortcuts:
+            text = wx.StaticText(self, label=shortcut)
+            sizer.Add(text, 0, wx.ALL | wx.EXPAND, 5)
+
+        self.SetSizer(sizer)
+        self.Layout()
 
 
 class VideoPlayer(wx.Panel):
@@ -85,7 +145,7 @@ class VideoPlayer(wx.Panel):
     Shortcut functions
     """
 
-    def open_file(self):
+    def open_file(self, event=None):
         logging.debug("Open file dialog key pressed")
         open_dialog = wx.FileDialog(self, "Open", "", "", "Video files (*.mp4)|*.mp4",
                                     wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
