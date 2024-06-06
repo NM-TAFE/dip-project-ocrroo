@@ -9,6 +9,10 @@ const pressedKeys= {};
 
 // Add event listener to whole document to check for key presses/keydown
 document.addEventListener("keydown", function (event) {
+    // Ignore if hotkey input is occurring in a text field
+    if (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'text') {
+        return;
+    }
     pressedKeys[event.code] = true;
     // Iterate through all hotkey bindings
     for (let action in hotkeys) {
