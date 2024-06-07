@@ -5,7 +5,7 @@ import logging
 from typing import Union
 import utils
 from utils import config
-from remotellama import LlamaInterface
+from remote_llama import Llama
 
 
 class ExtractText:
@@ -50,7 +50,7 @@ class ExtractText:
         if config("Formatting", "openai_analysis"):
             if(openai.api_key == None or openai.api_key == ""):
                 prompt = ExtractText.formatted_prompt(formatted_text, language)
-                formatted_text = LlamaInterface.query(prompt)
+                formatted_text = Llama.query(prompt)
             else:
                 formatted_text = ExtractText.openai_format_raw_ocr(formatted_text, language)
         if config("Formatting", "remove_backticks"):
