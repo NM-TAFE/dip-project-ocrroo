@@ -29,6 +29,10 @@ app.post('/llama', async (req, res) => {
 });
 app.post('/llamapreprompt', async (req, res) => {
     let query = defaultPrompt.replace('%QUESTION%', req.body.prompt);
+    //if the request specifies a language, add it to the query
+    if(req.body.language){
+        query = query.replace('%LANGUAGE%', req.body.language);
+    }
     //print the received prompt
     serverStatus = idleTimer > 0 ? 'Server is running: ' + idleTimer : 'Server is not running';
     console.log('Received prompt: ' + query + ' || ' + serverStatus);

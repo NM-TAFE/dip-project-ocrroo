@@ -24,8 +24,8 @@ class LlamaInterface:
         else:
             return response_data  # Return the response as is if it's not a dictionary
     
-    def query_with_default(content):
-        data = {"prompt": content}
+    def query_with_default(content, language):
+        data = {"prompt": content, "language": language}
         response = requests.post(LlamaInterface.url + 'llamapreprompt', headers=LlamaInterface.headers, json=data)
         response_data = response.json()
         # Check if the response is a dictionary before trying to access it
