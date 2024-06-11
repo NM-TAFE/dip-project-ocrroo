@@ -59,6 +59,9 @@ in the [Wiki](https://github.com/NM-TAFE/dip-project-ocrroo/wiki).
 
 1. Navigate to the projects root folder
 
+```bash
+cd path/to/project/root
+```
 2. Create a virtual environment
 
 ```bash
@@ -84,7 +87,19 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-5. ...rest of installation steps here
+## Running the Application
+
+1. Navigate to the application folder
+
+```bash
+cd app
+```
+
+2. Run the application
+
+```bash
+python app.py
+```
 
 ## Contributing
 
