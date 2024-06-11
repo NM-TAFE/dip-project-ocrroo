@@ -77,7 +77,3 @@ except IndexError:
 "Generally, by the time you are Real, most of your hair has been loved off, and your eyes drop out and you get loose in the joints and very shabby. But these things donÃ¢â‚¬â„¢t matter at all, because once you are Real you canÃ¢â‚¬â„¢t be ugly, except to people who donÃ¢â‚¬â„¢t understand. The way to print in the language is using the print function we will make.",Plain Text
 "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversations?",Plain Text
 "function greet() { console.log('Hello, world!'); }",Plain Text
-"<main><article><section>Title</section></article></main>",Plain Text
-"Some python test you asked, have it: def add(a, b): return a + b. Isn't it great?",Python
-"Some python test you asked, have it: def add(a, b): return a + b.",Python
-"I enjoy coding but I need some holidays for sure.",Plain Text
