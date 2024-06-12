@@ -12,8 +12,8 @@
 
 **AI Powered OCR Code Recognition from Video Tutorials**
 
-[![Build](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/build.yml/badge.svg)](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/build.yml)
 [![Tests](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/tests.yml/badge.svg)](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/tests.yml)
+[![Build](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/build.yml/badge.svg)](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/build.yml)
 [![Accessibility](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/accesibility.yml/badge.svg)](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/actions/workflows/accesibility.yml)
 
 </div>
@@ -34,7 +34,7 @@ The program reads code from videos to assist visually impaired developers in usi
 
 ## Installation
 
-To install and run this project, please follow the [Installation Guide](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/wiki/Installation-Guide)
+To install and run this project, please follow the [Installation Guide](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/wiki/)
 in the [Wiki](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/wiki).
 
  ### System Requirements
@@ -88,14 +88,14 @@ pip install -r requirements.txt
 
 ## Contributing
 
-To contribute to this project, please follow the [Contribution Guide](https://github.com/ninihub1/dip-programming-prj-advanced-gui-facilitate/wiki/wiki/Contribution-Guide)
+To contribute to this project, please follow the [Contribution Guide](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/wiki/Contribution-Guide)
 in the [Wiki](https://github.com/ninihub1/dip-programming-prj-advanced-gui-facilitate/wiki).
 
 ## Code of Conduct
 
 ---
 
-- To view the code of conduct, please visit the [Code of Conduct] page in the [Wiki](https://github.com/ninihub1/dip-programming-prj-advanced-gui-facilitate/wiki).
+- To view the code of conduct, please visit the [Code of Conduct] page in the [Code of Conduct](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/wiki/Code-of-Conduct).
 
 ## License
 
