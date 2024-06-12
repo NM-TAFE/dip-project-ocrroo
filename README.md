@@ -89,7 +89,7 @@ pip install -r requirements.txt
 ## Contributing
 
 To contribute to this project, please follow the [Contribution Guide](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/wiki/Contribution-Guide)
-in the [Wiki](https://github.com/ninihub1/dip-programming-prj-advanced-gui-facilitate/wiki).
+in the [Wiki](https://github.com/NM-TAFE/dip-programming-prj-advanced-gui-facilitate/wiki).
 
 ## Code of Conduct
 
